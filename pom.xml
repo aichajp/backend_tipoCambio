@@ -99,6 +99,18 @@
 	  <version>3.3.5</version>
 	  <type>jar</type>
 	 </dependency>
+	 <dependency>
+	  <groupId>org.junit.jupiter</groupId>
+	  <artifactId>junit-jupiter-api</artifactId>
+	  <version>5.10.5</version>
+	  <type>jar</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-test</artifactId>
+	  <version>3.3.5</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
