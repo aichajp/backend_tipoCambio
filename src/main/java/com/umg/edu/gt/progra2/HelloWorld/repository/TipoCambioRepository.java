@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.umg.edu.gt.progra2.HelloWorld.repository;
+import com.umg.edu.gt.progra2.HelloWorld.model.TipoCambio;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *

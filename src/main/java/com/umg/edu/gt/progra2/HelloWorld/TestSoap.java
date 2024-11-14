@@ -9,6 +9,7 @@ package com.umg.edu.gt.progra2.HelloWorld;
  *
  * @author JB
  */
+
 import com.umg.edu.gt.progra2.HelloWorld.service.TipoCambioSoapService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ public class TestSoap {
 
     @Test
     public void testObtenerTipoCambioDia() {
-        // Realiza aquí la llamada a tipoCambioSoapService y las aserciones necesarias.
         tipoCambioSoapService.obtenerTipoCambioDia();
     }
 }
