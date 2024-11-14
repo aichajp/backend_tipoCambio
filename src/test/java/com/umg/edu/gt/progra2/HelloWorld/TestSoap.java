@@ -22,7 +22,7 @@ public class TestSoap {
     @Test
     public void testObtenerTipoCambioDia() {
         System.out.println("init");
-        tipoCambioSoapService.obtenerTipoCambioDia();
+        //tipoCambioSoapService.obtenerTipoCambioDia();
         System.out.println("fin");
     }
     

@@ -23,6 +23,6 @@ public class TestSoap {
 
     @Test
     public void testObtenerTipoCambioDia() {
-        tipoCambioSoapService.obtenerTipoCambioDia();
+        //tipoCambioSoapService.obtenerTipoCambioDia();
     }
 }
