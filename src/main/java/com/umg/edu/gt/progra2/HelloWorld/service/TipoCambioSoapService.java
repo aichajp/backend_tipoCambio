@@ -1,5 +1,9 @@
 package com.umg.edu.gt.progra2.HelloWorld.service;
-
+import com.umg.edu.gt.progra2.HelloWorld.model.TipoCambio;
+import com.umg.edu.gt.progra2.HelloWorld.repository.TipoCambioRepository;
+import org.json.JSONObject;
+import org.json.XML;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
@@ -10,7 +14,10 @@ import org.springframework.http.MediaType;
 @Service
 public class TipoCambioSoapService {
 
-    public String obtenerTipoCambioDia() {
+    @Autowired
+    private TipoCambioRepository tipoCambioRepository;
+
+    public TipoCambio obtenerTipoCambioDia() {
         String soapEndpoint = "https://banguat.gob.gt/variables/ws/TipoCambio.asmx?WSDL";
         String soapAction = "http://www.banguat.gob.gt/variables/ws/TipoCambioDia";
 
@@ -32,11 +39,31 @@ public class TipoCambioSoapService {
 
         try {
             String result = restTemplate.exchange(soapEndpoint, HttpMethod.POST, request, String.class).getBody();
-            System.out.println(result);
-            return result;
+
+            if (result != null) {
+                JSONObject xmlJSONObj = XML.toJSONObject(result);
+                JSONObject varDolar = xmlJSONObj.getJSONObject("soap:Envelope")
+                        .getJSONObject("soap:Body")
+                        .getJSONObject("TipoCambioDiaResponse")
+                        .getJSONObject("TipoCambioDiaResult")
+                        .getJSONObject("CambioDolar")
+                        .getJSONObject("VarDolar");
+
+                String fecha = varDolar.getString("fecha");
+                double referencia = varDolar.getDouble("referencia");
+
+                TipoCambio tipoCambio = new TipoCambio();
+                tipoCambio.setFecha(fecha);
+                tipoCambio.setReferencia(referencia);
+
+                tipoCambioRepository.save(tipoCambio);
+                return tipoCambio;
+            } else {
+                throw new RuntimeException("Error al obtener el tipo de cambio: Respuesta vacía del servicio SOAP");
+            }
         } catch (Exception e) {
-            // registrar el error o lanza una excepción mas detallada
-            return "Error al obtener el tipo de cambio: " + e.getMessage();
+            e.printStackTrace();
+            throw new RuntimeException("Error al obtener el tipo de cambio: " + e.getMessage());
         }
     }
 }
